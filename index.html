@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="EIMSE - Servicios Electromecánicos Integrales. Electricidad industrial y domiciliaria, domótica, mecánica industrial, neumática, hidráulica, instrumentación y asesoría en mantenimiento industrial en Bolivia.">
+<meta name="keywords" content="electricidad industrial Bolivia, mantenimiento industrial, domótica, neumática, hidráulica, instrumentación, EIMSE, Santa Cruz Bolivia">
+<title>EIMSE — Ingeniería Electromecánica Integral</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;1,300&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #FF6B1A;
+    --primary-dark: #D4520D;
+    --primary-light: #FF8C45;
+    --navy: #0D1B2A;
+    --navy-mid: #162840;
+    --navy-light: #1E3A52;
+    --steel: #2C4A6E;
+    --ice: #A8C5E0;
+    --white: #F4F7FA;
+    --text-muted: #7A9AB8;
+    --accent-yellow: #F0B429;
+    --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--navy); }
+  ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5vw;
+    height: 70px;
+    background: rgba(13,27,42,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,107,26,0.15);
+    transition: var(--transition);
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 12px;
+    text-decoration: none;
+  }
+  .logo-icon {
+    width: 42px; height: 42px;
+    background: var(--primary);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px; color: white; letter-spacing: 1px;
+    flex-shrink: 0;
+  }
+  .logo-text { line-height: 1; }
+  .logo-text .name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px; letter-spacing: 3px; color: white;
+    display: block;
+  }
+  .logo-text .sub {
+    font-size: 9px; letter-spacing: 2px;
+    color: var(--primary); text-transform: uppercase;
+    display: block; margin-top: 1px;
+  }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    color: var(--ice); text-decoration: none; font-size: 13px;
+    letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600;
+    transition: var(--transition); position: relative; padding-bottom: 4px;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: 0; left: 0;
+    width: 0; height: 1px; background: var(--primary);
+    transition: var(--transition);
+  }
+  .nav-links a:hover { color: white; }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-cta {
+    background: var(--primary); color: white !important;
+    padding: 10px 22px !important; border-radius: 2px;
+    font-weight: 600 !important;
+  }
+  .nav-cta::after { display: none !important; }
+  .nav-cta:hover { background: var(--primary-dark) !important; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--white); transition: var(--transition); }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 120px 5vw 80px;
+    position: relative; overflow: hidden;
+    gap: 60px;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 60% at 70% 50%, rgba(255,107,26,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(30,58,82,0.6) 0%, transparent 60%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0; opacity: 0.04;
+    background-image: linear-gradient(var(--ice) 1px, transparent 1px),
+                      linear-gradient(90deg, var(--ice) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-content { position: relative; z-index: 2; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,107,26,0.12); border: 1px solid rgba(255,107,26,0.3);
+    color: var(--primary-light); font-size: 11px; letter-spacing: 2px;
+    text-transform: uppercase; padding: 7px 14px; border-radius: 2px;
+    margin-bottom: 28px; font-weight: 600;
+  }
+  .hero-badge span { width: 6px; height: 6px; border-radius: 50%; background: var(--primary); display: inline-block; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.4)} }
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 7vw, 88px);
+    line-height: 0.95;
+    letter-spacing: 2px;
+    margin-bottom: 24px;
+    color: white;
+  }
+  .hero-title .accent { color: var(--primary); display: block; }
+  .hero-title .thin { font-family: 'Barlow Condensed', sans-serif; font-weight: 300; font-size: 0.65em; letter-spacing: 5px; color: var(--ice); display: block; }
+  .hero-desc {
+    font-size: 17px; line-height: 1.7; color: var(--ice);
+    max-width: 480px; margin-bottom: 40px; font-weight: 300;
+  }
+  .hero-desc strong { color: white; font-weight: 600; }
+  .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--primary); color: white; text-decoration: none;
+    padding: 14px 32px; font-size: 13px; letter-spacing: 2px;
+    text-transform: uppercase; font-weight: 600; border-radius: 2px;
+    transition: var(--transition); display: inline-flex; align-items: center; gap: 10px;
+    border: none; cursor: pointer;
+  }
+  .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); }
+  .btn-outline {
+    border: 1px solid rgba(168,197,224,0.4); color: var(--ice);
+    text-decoration: none; padding: 14px 32px; font-size: 13px;
+    letter-spacing: 2px; text-transform: uppercase; font-weight: 600;
+    border-radius: 2px; transition: var(--transition); display: inline-flex; align-items: center; gap: 10px;
+  }
+  .btn-outline:hover { border-color: var(--primary); color: white; }
+  .hero-stats {
+    display: flex; gap: 32px; margin-top: 52px;
+    padding-top: 32px; border-top: 1px solid rgba(168,197,224,0.15);
+  }
+  .stat-item { text-align: center; }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif; font-size: 38px;
+    color: var(--primary); line-height: 1; display: block;
+    letter-spacing: 2px;
+  }
+  .stat-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-top: 4px; display: block; }
+  .hero-visual { position: relative; z-index: 2; display: flex; align-items: center; justify-content: center; }
+  .hex-grid { position: relative; width: 100%; max-width: 460px; aspect-ratio: 1; }
+  .hex-center {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    width: 130px; height: 130px;
+    background: var(--primary);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    z-index: 5;
+  }
+  .hex-center .eim { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 3px; color: white; line-height: 1; }
+  .hex-center .se { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 3px; color: rgba(255,255,255,0.6); line-height: 1; }
+  .hex-orbit {
+    position: absolute; top: 50%; left: 50%;
+    width: 100%; height: 100%;
+    transform: translate(-50%,-50%);
+    animation: spin 25s linear infinite;
+  }
+  .hex-orbit-2 { animation: spin 18s linear infinite reverse; }
+  @keyframes spin { from{transform:translate(-50%,-50%) rotate(0deg)} to{transform:translate(-50%,-50%) rotate(360deg)} }
+  .hex-sat {
+    position: absolute;
+    width: 68px; height: 68px;
+    background: var(--navy-mid);
+    border: 1px solid rgba(255,107,26,0.3);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--ice); text-align: center; line-height: 1.3;
+    transition: var(--transition);
+  }
+  .hex-sat:hover { background: rgba(255,107,26,0.2); border-color: var(--primary); z-index: 10; }
+  .hs1 { top: 2%; left: 50%; transform: translate(-50%, 0); }
+  .hs2 { top: 20%; right: 5%; transform: translateY(-50%); }
+  .hs3 { bottom: 20%; right: 5%; transform: translateY(50%); }
+  .hs4 { bottom: 2%; left: 50%; transform: translate(-50%, 0); }
+  .hs5 { bottom: 20%; left: 5%; transform: translateY(50%); }
+  .hs6 { top: 20%; left: 5%; transform: translateY(-50%); }
+  .hex-ring {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    border-radius: 50%; border: 1px dashed rgba(255,107,26,0.15);
+  }
+  .ring1 { width: 200px; height: 200px; }
+  .ring2 { width: 360px; height: 360px; animation: pulse-ring 4s ease-in-out infinite; }
+  @keyframes pulse-ring { 0%,100%{opacity:0.15;transform:translate(-50%,-50%) scale(1)} 50%{opacity:0.3;transform:translate(-50%,-50%) scale(1.03)} }
+
+  /* ─── SECTION COMMON ─── */
+  section { padding: 100px 5vw; }
+  .section-label {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--primary); font-weight: 600; margin-bottom: 12px; display: block;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(38px, 5vw, 58px); letter-spacing: 2px; line-height: 1;
+    color: white; margin-bottom: 16px;
+  }
+  .section-desc { font-size: 16px; color: var(--text-muted); line-height: 1.7; max-width: 560px; }
+  .section-header { margin-bottom: 60px; }
+  .section-header.center { text-align: center; }
+  .section-header.center .section-desc { margin: 0 auto; }
+
+  /* ─── SERVICES ─── */
+  #servicios { background: var(--navy-mid); }
+  .services-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2px; border: 1px solid rgba(255,107,26,0.1);
+  }
+  .service-card {
+    background: var(--navy); padding: 36px 32px;
+    border: 1px solid rgba(168,197,224,0.06);
+    transition: var(--transition); cursor: default;
+    position: relative; overflow: hidden;
+  }
+  .service-card::before {
+    content: ''; position: absolute;
+    bottom: 0; left: 0; right: 0; height: 3px;
+    background: var(--primary); transform: scaleX(0); transform-origin: left;
+    transition: var(--transition);
+  }
+  .service-card:hover { background: var(--navy-light); border-color: rgba(255,107,26,0.2); }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-num {
+    font-family: 'Bebas Neue', sans-serif; font-size: 48px;
+    color: rgba(255,107,26,0.12); line-height: 1; margin-bottom: 16px;
+    letter-spacing: 2px; transition: var(--transition);
+  }
+  .service-card:hover .service-num { color: rgba(255,107,26,0.3); }
+  .service-icon {
+    width: 48px; height: 48px; margin-bottom: 20px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .service-icon svg { width: 100%; height: 100%; }
+  .service-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; color: white; margin-bottom: 12px;
+  }
+  .service-desc { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+  .service-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 20px; }
+  .tag {
+    font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--primary); border: 1px solid rgba(255,107,26,0.25);
+    padding: 4px 10px; border-radius: 1px;
+  }
+
+  /* ─── WHY US ─── */
+  #nosotros { background: var(--navy); }
+  .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .why-visual {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  }
+  .why-block {
+    background: var(--navy-mid); padding: 28px 24px;
+    border: 1px solid rgba(168,197,224,0.08);
+    border-radius: 2px; transition: var(--transition);
+  }
+  .why-block:hover { border-color: rgba(255,107,26,0.3); transform: translateY(-4px); }
+  .why-block.tall { grid-row: span 2; display: flex; flex-direction: column; justify-content: space-between; }
+  .why-block-num {
+    font-family: 'Bebas Neue', sans-serif; font-size: 52px;
+    color: var(--primary); line-height: 1; margin-bottom: 8px; letter-spacing: 2px;
+  }
+  .why-block-label { font-size: 13px; letter-spacing: 1px; color: var(--text-muted); text-transform: uppercase; }
+  .why-block-title { font-size: 16px; font-weight: 600; color: white; margin-bottom: 8px; }
+  .why-block-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+  .why-points { list-style: none; margin-top: 28px; display: flex; flex-direction: column; gap: 20px; }
+  .why-points li { display: flex; gap: 16px; align-items: flex-start; }
+  .wp-dot {
+    width: 28px; height: 28px; flex-shrink: 0;
+    background: rgba(255,107,26,0.12); border: 1px solid rgba(255,107,26,0.3);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    margin-top: 2px;
+  }
+  .wp-dot svg { width: 14px; height: 14px; stroke: var(--primary); }
+  .wp-content strong { display: block; font-size: 15px; font-weight: 600; color: white; margin-bottom: 4px; }
+  .wp-content span { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+  /* ─── SECTORS ─── */
+  #sectores { background: var(--navy-mid); }
+  .sectors-strip {
+    display: flex; gap: 0; overflow: hidden;
+    border: 1px solid rgba(168,197,224,0.08);
+    border-radius: 2px; flex-wrap: wrap;
+  }
+  .sector-item {
+    flex: 1; min-width: 140px; padding: 32px 20px; text-align: center;
+    border-right: 1px solid rgba(168,197,224,0.08);
+    border-bottom: 1px solid rgba(168,197,224,0.08);
+    transition: var(--transition); cursor: default;
+  }
+  .sector-item:last-child { border-right: none; }
+  .sector-item:hover { background: rgba(255,107,26,0.08); }
+  .sector-icon { font-size: 28px; margin-bottom: 12px; display: block; }
+  .sector-name { font-size: 13px; font-weight: 600; color: var(--ice); text-transform: uppercase; letter-spacing: 1px; line-height: 1.4; }
+  .features-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px; margin-top: 64px;
+  }
+  .feat {
+    display: flex; align-items: flex-start; gap: 16px;
+    padding: 24px; background: var(--navy);
+    border: 1px solid rgba(168,197,224,0.08); border-radius: 2px;
+    transition: var(--transition);
+  }
+  .feat:hover { border-color: rgba(255,107,26,0.2); }
+  .feat-icon {
+    width: 40px; height: 40px; flex-shrink: 0;
+    background: rgba(255,107,26,0.1); border-radius: 2px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .feat-icon svg { width: 20px; height: 20px; stroke: var(--primary); }
+  .feat-text strong { display: block; font-size: 14px; font-weight: 600; color: white; margin-bottom: 4px; }
+  .feat-text span { font-size: 13px; color: var(--text-muted); }
+
+  /* ─── CONTACT ─── */
+  #contacto { background: var(--navy); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; align-items: start; }
+  .contact-info { display: flex; flex-direction: column; gap: 28px; }
+  .contact-item { display: flex; gap: 16px; align-items: flex-start; }
+  .ci-icon {
+    width: 44px; height: 44px; flex-shrink: 0;
+    background: rgba(255,107,26,0.1); border: 1px solid rgba(255,107,26,0.2);
+    border-radius: 2px; display: flex; align-items: center; justify-content: center;
+  }
+  .ci-icon svg { width: 20px; height: 20px; stroke: var(--primary); }
+  .ci-text strong { display: block; font-size: 14px; font-weight: 600; color: white; margin-bottom: 4px; }
+  .ci-text span { font-size: 14px; color: var(--text-muted); }
+  .contact-form { display: flex; flex-direction: column; gap: 20px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 8px; }
+  .form-group label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; }
+  .form-group input, .form-group select, .form-group textarea {
+    background: var(--navy-mid); border: 1px solid rgba(168,197,224,0.15);
+    color: var(--white); padding: 14px 16px; font-size: 14px;
+    font-family: 'Barlow', sans-serif; border-radius: 2px;
+    outline: none; transition: var(--transition);
+    -webkit-appearance: none;
+  }
+  .form-group select option { background: var(--navy-mid); }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: var(--primary); background: var(--navy-light);
+  }
+  .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(122,154,184,0.5); }
+  .form-group textarea { resize: vertical; min-height: 120px; }
+
+  /* ─── WA BUTTON ─── */
+  .wa-float {
+    position: fixed; bottom: 28px; right: 28px; z-index: 200;
+    width: 58px; height: 58px; border-radius: 50%;
+    background: #25D366; border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+    transition: var(--transition); text-decoration: none;
+  }
+  .wa-float:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(37,211,102,0.5); }
+  .wa-float svg { width: 28px; height: 28px; fill: white; }
+  .wa-pulse {
+    position: absolute; inset: -4px; border-radius: 50%;
+    background: rgba(37,211,102,0.3); animation: wa-ring 2s infinite;
+  }
+  @keyframes wa-ring { 0%{transform:scale(1);opacity:0.6} 100%{transform:scale(1.5);opacity:0} }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--navy-mid); padding: 60px 5vw 32px;
+    border-top: 1px solid rgba(255,107,26,0.15);
+  }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+  .footer-brand p { font-size: 14px; color: var(--text-muted); line-height: 1.7; margin-top: 16px; max-width: 280px; }
+  .footer-col h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--primary); margin-bottom: 20px; font-weight: 700; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-col ul li a { font-size: 14px; color: var(--text-muted); text-decoration: none; transition: var(--transition); }
+  .footer-col ul li a:hover { color: var(--white); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 28px; border-top: 1px solid rgba(168,197,224,0.08); }
+  .footer-bottom p { font-size: 12px; color: var(--text-muted); }
+  .footer-social { display: flex; gap: 12px; }
+  .social-btn {
+    width: 36px; height: 36px; border: 1px solid rgba(168,197,224,0.15);
+    border-radius: 2px; display: flex; align-items: center; justify-content: center;
+    transition: var(--transition); text-decoration: none;
+  }
+  .social-btn svg { width: 16px; height: 16px; stroke: var(--text-muted); fill: none; transition: var(--transition); }
+  .social-btn:hover { border-color: var(--primary); background: rgba(255,107,26,0.1); }
+  .social-btn:hover svg { stroke: var(--primary); }
+
+  /* ─── MOBILE ─── */
+  @media (max-width: 900px) {
+    #hero { grid-template-columns: 1fr; padding-top: 100px; }
+    .hero-visual { display: none; }
+    .hero-stats { gap: 20px; }
+    .why-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+  }
+  @media (max-width: 600px) {
+    section { padding: 70px 5vw; }
+    .form-row { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .why-visual { grid-template-columns: 1fr; }
+    .why-block.tall { grid-row: span 1; }
+  }
+
+  /* ─── REVEAL ANIMATIONS ─── */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">
+    <div class="logo-icon">EI</div>
+    <div class="logo-text">
+      <span class="name">EIMSE</span>
+      <span class="sub">Ingeniería Electromecánica</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#sectores">Sectores</a></li>
+    <li><a href="#contacto" class="nav-cta">Cotizar</a></li>
+  </ul>
+  <div class="hamburger" id="ham" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content reveal">
+    <div class="hero-badge">
+      <span></span> Especialistas en soluciones electromecánicas
+    </div>
+    <h1 class="hero-title">
+      <span class="thin">Ingeniería</span>
+      ELECTRO<span class="accent">MECÁNICA</span>
+    </h1>
+    <p class="hero-desc">
+      Soluciones <strong>integrales</strong> para la industria. Desde electricidad industrial y domótica hasta neumática, hidráulica e instrumentación — con la precisión y experiencia que tu proyecto exige.
+    </p>
+    <div class="hero-actions">
+      <a href="#contacto" class="btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.02 2.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"></path></svg>
+        Solicitar cotización
+      </a>
+      <a href="#servicios" class="btn-outline">Ver servicios →</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num">10+</span>
+        <span class="stat-label">Años de experiencia</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">200+</span>
+        <span class="stat-label">Proyectos realizados</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">8</span>
+        <span class="stat-label">Especialidades</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-visual reveal" style="transition-delay:0.2s">
+    <div class="hex-grid">
+      <div class="hex-ring ring2"></div>
+      <div class="hex-ring ring1"></div>
+      <div class="hex-orbit">
+        <div class="hex-sat hs1">Elect.<br>Ind.</div>
+        <div class="hex-sat hs2">Domó-<br>tica</div>
+        <div class="hex-sat hs3">Mecá-<br>nica</div>
+        <div class="hex-sat hs4">Hidráu-<br>lica</div>
+        <div class="hex-sat hs5">Neumá-<br>tica</div>
+        <div class="hex-sat hs6">Instrum.</div>
+      </div>
+      <div class="hex-center">
+        <span class="eim">EIM</span>
+        <span class="se">SE</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section id="servicios">
+  <div class="section-header reveal">
+    <span class="section-label">Nuestros servicios</span>
+    <h2 class="section-title">Lo que hacemos,<br>lo hacemos bien</h2>
+    <p class="section-desc">Ofrecemos soluciones técnicas completas para industrias, empresas y hogares en Bolivia, con personal certificado y equipamiento de vanguardia.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-num">01</div>
+      <div class="service-name">Electricidad Industrial</div>
+      <p class="service-desc">Instalaciones, ampliaciones y correctivos eléctricos para plantas industriales. Diseño de tableros, centros de carga, redes de distribución BT/MT y puestas a tierra.</p>
+      <div class="service-tags"><span class="tag">BT/MT</span><span class="tag">Tableros</span><span class="tag">Puesta a tierra</span></div>
+    </div>
+    <div class="service-card reveal" style="transition-delay:0.1s">
+      <div class="service-num">02</div>
+      <div class="service-name">Electricidad Domiciliaria</div>
+      <p class="service-desc">Instalaciones residenciales y comerciales, actualización de sistemas eléctricos, luminarias eficientes y cumplimiento de normativas locales.</p>
+      <div class="service-tags"><span class="tag">Residencial</span><span class="tag">Comercial</span><span class="tag">LED</span></div>
+    </div>
+    <div class="service-card reveal" style="transition-delay:0.15s">
+      <div class="service-num">03</div>
+      <div class="service-name">Domótica y Automatización</div>
+      <p class="service-desc">Hogares y edificios inteligentes con control de iluminación, climatización, seguridad y accesos desde tu smartphone o tablet.</p>
+      <div class="service-tags"><span class="tag">Smart Home</span><span class="tag">KNX</span><span class="tag">IoT</span></div>
+    </div>
+    <div class="service-card reveal" style="transition-delay:0.2s">
+      <div class="service-num">04</div>
+      <div class="service-name">Mecánica Industrial</div>
+      <p class="service-desc">Mantenimiento, reparación e instalación de maquinaria. Alineación de ejes, balanceo dinámico, cambio de rodamientos y revisión de transmisiones.</p>
+      <div class="service-tags"><span class="tag">Alineación</span><span class="tag">Transmisiones</span><span class="tag">Rodamientos</span></div>
+    </div>
+    <div class="service-card reveal" style="transition-delay:0.25s">
+      <div class="service-num">05</div>
+      <div class="service-name">Neumática e Hidráulica</div>
+      <p class="service-desc">Diseño, instalación y mantenimiento de sistemas neumáticos e hidráulicos industriales. Diagnóstico de fugas, reparación de actuadores y bombas.</p>
+      <div class="service-tags"><span class="tag">Actuadores</span><span class="tag">Bombas</span><span class="tag">Válvulas</span></div>
+    </div>
+    <div class="service-card reveal" style="transition-delay:0.3s">
+      <div class="service-num">06</div>
+      <div class="service-name">Instrumentación y Control</div>
+      <p class="service-desc">Calibración e instalación de instrumentos de medición, lazos de control PID, configuración de PLCs y sistemas SCADA para procesos industriales.</p>
+      <div class="service-tags"><span class="tag">PLC</span><span class="tag">SCADA</span><span class="tag">PID</span></div>
+    </div>
+    <div class="service-card reveal" style="transition-delay:0.35s">
+      <div class="service-num">07</div>
+      <div class="service-name">Asesoría en Mantenimiento</div>
+      <p class="service-desc">Planes de mantenimiento preventivo y predictivo, análisis de criticidad de activos y capacitación técnica para tu equipo de mantenimiento interno.</p>
+      <div class="service-tags"><span class="tag">Preventivo</span><span class="tag">Predictivo</span><span class="tag">Capacitación</span></div>
+    </div>
+    <div class="service-card reveal" style="transition-delay:0.4s; background: linear-gradient(135deg, rgba(255,107,26,0.12) 0%, rgba(255,107,26,0.05) 100%);">
+      <div class="service-num" style="color:rgba(255,107,26,0.4)">+</div>
+      <div class="service-name" style="color: var(--primary)">¿Necesitas algo más?</div>
+      <p class="service-desc" style="color:var(--ice)">Cuéntanos tu proyecto. Evaluamos soluciones a medida para requerimientos específicos industriales o residenciales.</p>
+      <a href="#contacto" class="btn-primary" style="margin-top:24px; width:fit-content; font-size:12px; padding:10px 20px;">Consultarnos →</a>
+    </div>
+  </div>
+</section>
+
+<!-- POR QUÉ NOSOTROS -->
+<section id="nosotros">
+  <div class="why-grid">
+    <div>
+      <div class="section-header reveal">
+        <span class="section-label">¿Por qué EIMSE?</span>
+        <h2 class="section-title">Técnica,<br>confianza y<br>resultados</h2>
+        <p class="section-desc">Somos un equipo de ingenieros y técnicos especializados comprometidos con la calidad y la seguridad en cada proyecto.</p>
+      </div>
+      <ul class="why-points">
+        <li class="reveal">
+          <div class="wp-dot">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
+          <div class="wp-content">
+            <strong>Personal técnico certificado</strong>
+            <span>Ingenieros y técnicos con formación continua y experiencia comprobada en el sector industrial boliviano.</span>
+          </div>
+        </li>
+        <li class="reveal" style="transition-delay:0.1s">
+          <div class="wp-dot">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
+          <div class="wp-content">
+            <strong>Respuesta rápida y puntualidad</strong>
+            <span>Sabemos que el tiempo de inactividad cuesta. Atendemos emergencias y cumplimos los plazos acordados.</span>
+          </div>
+        </li>
+        <li class="reveal" style="transition-delay:0.2s">
+          <div class="wp-dot">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
+          <div class="wp-content">
+            <strong>Soluciones integrales bajo un solo contrato</strong>
+            <span>Electricidad, mecánica, automatización y mantenimiento en un solo proveedor confiable.</span>
+          </div>
+        </li>
+        <li class="reveal" style="transition-delay:0.3s">
+          <div class="wp-dot">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
+          <div class="wp-content">
+            <strong>Garantía en todos nuestros trabajos</strong>
+            <span>Respaldamos cada proyecto con garantía escrita y seguimiento post-servicio.</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="why-visual reveal" style="transition-delay:0.2s">
+      <div class="why-block tall">
+        <div>
+          <div class="why-block-num">10+</div>
+          <div class="why-block-label">Años en el mercado</div>
+        </div>
+        <div>
+          <div class="why-block-title">Presencia en Santa Cruz y el país</div>
+          <div class="why-block-desc">Atendemos proyectos en Santa Cruz de la Sierra, interior del país y zonas industriales del eje troncal.</div>
+        </div>
+      </div>
+      <div class="why-block">
+        <div class="why-block-num">200+</div>
+        <div class="why-block-label">Proyectos completados</div>
+      </div>
+      <div class="why-block">
+        <div class="why-block-num">98%</div>
+        <div class="why-block-label">Satisfacción del cliente</div>
+      </div>
+      <div class="why-block">
+        <div class="why-block-num">24h</div>
+        <div class="why-block-label">Respuesta emergencias</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTORES -->
+<section id="sectores">
+  <div class="section-header center reveal">
+    <span class="section-label">Sectores que atendemos</span>
+    <h2 class="section-title">Industrias que confían en EIMSE</h2>
+    <p class="section-desc">Experiencia comprobada en múltiples sectores productivos e industriales de Bolivia.</p>
+  </div>
+  <div class="sectors-strip reveal">
+    <div class="sector-item"><span class="sector-icon">🏭</span><span class="sector-name">Manufactura</span></div>
+    <div class="sector-item"><span class="sector-icon">⛽</span><span class="sector-name">Oil & Gas</span></div>
+    <div class="sector-item"><span class="sector-icon">🌾</span><span class="sector-name">Agroindustria</span></div>
+    <div class="sector-item"><span class="sector-icon">🏗️</span><span class="sector-name">Construcción</span></div>
+    <div class="sector-item"><span class="sector-icon">🏢</span><span class="sector-name">Comercial</span></div>
+    <div class="sector-item"><span class="sector-icon">🏠</span><span class="sector-name">Residencial</span></div>
+    <div class="sector-item"><span class="sector-icon">🏥</span><span class="sector-name">Salud</span></div>
+    <div class="sector-item"><span class="sector-icon">🔬</span><span class="sector-name">Laboratorios</span></div>
+  </div>
+  <div class="features-row">
+    <div class="feat reveal">
+      <div class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+      <div class="feat-text"><strong>Seguridad en todo momento</strong><span>Cumplimos normas IEC, NB y protocolos de seguridad industrial.</span></div>
+    </div>
+    <div class="feat reveal" style="transition-delay:0.1s">
+      <div class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="3"></circle><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"></path></svg></div>
+      <div class="feat-text"><strong>Tecnología de punta</strong><span>Herramientas y equipos de diagnóstico modernos para resultados precisos.</span></div>
+    </div>
+    <div class="feat reveal" style="transition-delay:0.2s">
+      <div class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"></path></svg></div>
+      <div class="feat-text"><strong>Equipo multidisciplinario</strong><span>Ingenieros eléctricos, mecánicos e instrumentistas trabajando juntos.</span></div>
+    </div>
+    <div class="feat reveal" style="transition-delay:0.3s">
+      <div class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg></div>
+      <div class="feat-text"><strong>Monitoreo y reportes</strong><span>Informes técnicos detallados y seguimiento de cada intervención.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="contact-grid">
+    <div>
+      <div class="section-header reveal">
+        <span class="section-label">Contacto</span>
+        <h2 class="section-title">Hablemos de tu proyecto</h2>
+        <p class="section-desc">Cuéntanos qué necesitas. Nuestro equipo te responde en menos de 24 horas con una propuesta técnica y económica.</p>
+      </div>
+      <div class="contact-info reveal" style="transition-delay:0.1s">
+        <div class="contact-item">
+          <div class="ci-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.02 2.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"></path></svg></div>
+          <div class="ci-text"><strong>Teléfono / WhatsApp</strong><span>+591 61587610 / +591 75611674</span></div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></div>
+          <div class="ci-text"><strong>Correo electrónico</strong><span>electriceim21@gmail.com</span></div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>
+          <div class="ci-text"><strong>Ubicación</strong><span>Santa Cruz de la Sierra, Bolivia</span></div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
+          <div class="ci-text"><strong>Horario de atención</strong><span>Lun – Vie: 8:00 – 18:00 | Sáb: 8:00 – 12:00</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form reveal" style="transition-delay:0.15s">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nombre completo</label>
+          <input type="text" placeholder="Tu nombre">
+        </div>
+        <div class="form-group">
+          <label>Empresa</label>
+          <input type="text" placeholder="Nombre de tu empresa">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Teléfono / WhatsApp</label>
+          <input type="tel" placeholder="+591">
+        </div>
+        <div class="form-group">
+          <label>Correo electrónico</label>
+          <input type="email" placeholder="tu@correo.com">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Servicio de interés</label>
+        <select>
+          <option value="" disabled selected>Selecciona un servicio</option>
+          <option>Electricidad Industrial</option>
+          <option>Electricidad Domiciliaria</option>
+          <option>Domótica y Automatización</option>
+          <option>Mecánica Industrial</option>
+          <option>Neumática e Hidráulica</option>
+          <option>Instrumentación y Control</option>
+          <option>Asesoría en Mantenimiento</option>
+          <option>Otro / Varios servicios</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Descripción del proyecto</label>
+        <textarea placeholder="Cuéntanos brevemente sobre tu proyecto o requerimiento..."></textarea>
+      </div>
+      <button class="btn-primary" type="button" style="width:100%; justify-content:center;" onclick="handleSubmit()">
+        Enviar solicitud de cotización
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#hero" class="nav-logo" style="display:inline-flex">
+        <div class="logo-icon">EI</div>
+        <div class="logo-text">
+          <span class="name">EIMSE</span>
+          <span class="sub">Ingeniería Electromecánica</span>
+        </div>
+      </a>
+      <p>Soluciones electromecánicas integrales para la industria boliviana. Calidad, seguridad y resultados garantizados en cada proyecto.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Servicios</h4>
+      <ul>
+        <li><a href="#servicios">Electricidad Industrial</a></li>
+        <li><a href="#servicios">Electricidad Domiciliaria</a></li>
+        <li><a href="#servicios">Domótica</a></li>
+        <li><a href="#servicios">Mecánica Industrial</a></li>
+        <li><a href="#servicios">Neumática e Hidráulica</a></li>
+        <li><a href="#servicios">Instrumentación</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Empresa</h4>
+      <ul>
+        <li><a href="#nosotros">Quiénes somos</a></li>
+        <li><a href="#sectores">Sectores</a></li>
+        <li><a href="#contacto">Trabaja con nosotros</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contacto</h4>
+      <ul>
+        <li><a href="tel:+59161587610">+591 61587610</a></li>
+        <li><a href="tel:+59175611674">+591 75611674</a></li>
+        <li><a href="mailto:electriceim21@gmail.com">electriceim21@gmail.com</a></li>
+        <li><a href="#contacto">Santa Cruz, Bolivia</a></li>
+        <li><a href="https://wa.me/59161587610" target="_blank">WhatsApp Business</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 EIMSE. Todos los derechos reservados.</p>
+    <div class="footer-social">
+      <a href="#" class="social-btn" aria-label="Facebook">
+        <svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path></svg>
+      </a>
+      <a href="#" class="social-btn" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+      </a>
+      <a href="#" class="social-btn" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path><circle cx="4" cy="4" r="2"></circle></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/59161587610" class="wa-float" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <div class="wa-pulse"></div>
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+    <path d="M12.004 0C5.374 0 0 5.373 0 11.997c0 2.117.554 4.099 1.52 5.812L.057 23.476a.501.501 0 00.609.609l5.71-1.496A11.956 11.956 0 0012.004 24C18.63 24 24 18.626 24 11.997 24 5.373 18.63 0 12.004 0zm0 21.818a9.774 9.774 0 01-4.985-1.362l-.357-.213-3.716.974.99-3.63-.234-.373A9.762 9.762 0 012.18 11.997C2.18 6.577 6.58 2.18 12.004 2.18c5.42 0 9.818 4.397 9.818 9.817 0 5.425-4.398 9.821-9.818 9.821z"/>
+  </svg>
+</a>
+
+<script>
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  reveals.forEach(r => obs.observe(r));
+
+  // Nav shadow on scroll
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').style.boxShadow = window.scrollY > 40 ? '0 4px 30px rgba(0,0,0,0.4)' : 'none';
+  });
+
+  // Mobile menu toggle
+  let menuOpen = false;
+  function toggleMenu() {
+    const links = document.querySelector('.nav-links');
+    menuOpen = !menuOpen;
+    if (menuOpen) {
+      links.style.cssText = 'display:flex;flex-direction:column;position:fixed;top:70px;left:0;right:0;background:rgba(13,27,42,0.98);padding:24px 5vw;gap:20px;border-bottom:1px solid rgba(255,107,26,0.2);';
+    } else {
+      links.style.cssText = '';
+    }
+  }
+
+  // Form submit
+  function handleSubmit() {
+    const btn = event.currentTarget;
+    btn.textContent = '✓ ¡Solicitud enviada! Nos contactaremos pronto';
+    btn.style.background = '#1a7a45';
+    btn.disabled = true;
+  }
+</script>
+</body>
+</html>
